@@ -689,7 +689,7 @@ func (p *MediaPlaylist) Encode() *bytes.Buffer {
 				durationCache[seg.Duration] = strconv.FormatInt(int64(math.Ceil(seg.Duration)), 10)
 			} else {
 				// Wowza Mediaserver and some others prefer floats.
-				durationCache[seg.Duration] = strconv.FormatFloat(seg.Duration, 'f', -1, 32)
+				durationCache[seg.Duration] = strconv.FormatFloat(seg.Duration, 'f', -1, 64)
 			}
 			p.buf.WriteString(durationCache[seg.Duration])
 		}
