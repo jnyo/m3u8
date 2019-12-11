@@ -373,7 +373,7 @@ func (p *MediaPlaylist) AppendSegment(seg *MediaSegment) error {
 	p.tail = (p.tail + 1) % p.capacity
 	p.count++
 	if p.TargetDuration < seg.Duration {
-		p.TargetDuration = math.Ceil(seg.Duration)
+		p.TargetDuration = math.Floor(seg.Duration)
 	}
 	p.buf.Reset()
 	return nil
@@ -470,7 +470,7 @@ func (p *MediaPlaylist) Encode() *bytes.Buffer {
 	p.buf.WriteString(strconv.FormatUint(p.SeqNo, 10))
 	p.buf.WriteRune('\n')
 	p.buf.WriteString("#EXT-X-TARGETDURATION:")
-	p.buf.WriteString(strconv.FormatInt(int64(math.Ceil(p.TargetDuration)), 10)) // due section 3.4.2 of M3U8 specs EXT-X-TARGETDURATION must be integer
+	p.buf.WriteString(strconv.FormatInt(int64(math.Floor(p.TargetDuration)), 10)) // due section 3.4.2 of M3U8 specs EXT-X-TARGETDURATION must be integer
 	p.buf.WriteRune('\n')
 	if p.StartTime > 0.0 {
 		p.buf.WriteString("#EXT-X-START:TIME-OFFSET=")
