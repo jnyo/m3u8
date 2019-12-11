@@ -904,3 +904,30 @@ func (p *MediaPlaylist) SetWinSize(winsize uint) error {
 	p.winsize = winsize
 	return nil
 }
+
+// SetCount overwrites the playlist's Count.
+func (p *MediaPlaylist) SetCount(count uint) error {
+	if count > p.capacity {
+		return errors.New("capacity must be greater than count or equal")
+	}
+	p.count = count
+	return nil
+}
+
+// SetHead overwrites the playlist's Head.
+func (p *MediaPlaylist) SetHead(head uint) error {
+	if head > p.capacity {
+		return errors.New("capacity must be greater than head or equal")
+	}
+	p.head = head
+	return nil
+}
+
+// SetTail overwrites the playlist's Tail.
+func (p *MediaPlaylist) SetTail(tail uint) error {
+	if tail > p.capacity {
+		return errors.New("capacity must be greater than tail or equal")
+	}
+	p.tail = tail
+	return nil
+}
